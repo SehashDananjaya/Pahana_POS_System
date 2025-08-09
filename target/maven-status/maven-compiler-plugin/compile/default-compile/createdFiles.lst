@@ -1,0 +1,7 @@
+com/icbt/service/ProductServiceV1.class
+com/icbt/dao/DBConnection.class
+com/icbt/dao/ProductDAO.class
+com/icbt/controller/ProductController.class
+com/icbt/service/ProductService.class
+com/icbt/model/Product.class
+com/icbt/dao/DBConnectionFactory.class
