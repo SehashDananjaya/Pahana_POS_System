@@ -21,19 +21,19 @@
 <body>
     <div class="container">
         <h1 class="text-center">Add Customer</h1>
-        <form action="CustomerController?action=add" method="post"> 
+        <form action="customer?action=add" method="post"> 
             <!-- ID (usually auto-generated, so optional to enter) -->
             <div class="form-group">
                 <label for="id">ID:</label>
-                <input type="number" class="form-control" id="id" name="id" placeholder="Enter ID" required>
+                <input type="number" class="form-control" id="id" name="cusid" placeholder="Enter ID" required>
             </div>
             <div class="form-group">
                 <label for="name">Name:</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" required>
+                <input type="text" class="form-control" id="name" name="cusname" placeholder="Enter Name" required>
             </div>
             <div class="form-group">
                 <label for="address">Address:</label>
-                <input type="text" class="form-control" id="address" name="address" placeholder="Enter Address" required>
+                <input type="text" class="form-control" id="address" name="cus" placeholder="Enter Address" required>
             </div>
             <div class="form-group">
                 <label for="telphone">Telephone:</label>
@@ -41,7 +41,7 @@
             </div>
             <div class="form-group">
                 <label for="units">Units:</label>
-                <input type="number" class="form-control" id="units" name="units" placeholder="Enter Units" required>
+                <input type="number" class="form-control" id="units" name="cusemail" placeholder="Enter Units" required>
             </div>
             <button type="submit" class="btn btn-primary">Add Customer</button>
         </form>
