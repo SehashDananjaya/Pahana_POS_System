@@ -13,16 +13,16 @@ import com.icbt.model.Customer;
 public class CustomerDAO {
 	
 	public void addCustomer(Customer customer) {
-        String query = "INSERT INTO Customer (name, address, telphone, email, units) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Customer (name, address, telephone, email) VALUES (?, ?, ?, ?)";
 
         try {
             Connection connection = DBConnectionFactory.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, customer.getName());
             statement.setString(2, customer.getAddress());
-            statement.setString(3, customer.getTelphone());
+            statement.setString(3, customer.getTelephone());
             statement.setString(4, customer.getEmail());
-            statement.setInt(5, customer.getUnits());
+           // statement.setInt(5, customer.getUnits());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -39,14 +39,14 @@ public class CustomerDAO {
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
+                int id = resultSet.getInt("customer_id");
                 String name = resultSet.getString("name");
                 String address = resultSet.getString("address");
-                String telphone = resultSet.getString("telphone");
+                String telphone = resultSet.getString("telephone");
                 String email = resultSet.getString("email");
-                int units = resultSet.getInt("units");
+                //int units = resultSet.getInt("units");
 
-                Customer customer = new Customer(name, address, telphone, email, units);
+                Customer customer = new Customer(name, address, telphone, email);
                 customer.setId(id);
                 customers.add(customer);
             }
@@ -70,11 +70,11 @@ public class CustomerDAO {
             if (resultSet.next()) {
                 String name = resultSet.getString("name");
                 String address = resultSet.getString("address");
-                String telphone = resultSet.getString("telphone");
+                String telphone = resultSet.getString("telephone");
                 String email = resultSet.getString("email");
                 int units = resultSet.getInt("units");
 
-                customer = new Customer(name, address, telphone, email, units);
+                customer = new Customer(name, address, telphone, email);
                 customer.setId(id);
             }
         } catch (SQLException e) {
@@ -92,7 +92,7 @@ public class CustomerDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, customer.getName());
             statement.setString(2, customer.getAddress());
-            statement.setString(3, customer.getTelphone());
+            statement.setString(3, customer.getTelephone());
             statement.setString(4, customer.getEmail());
             statement.setInt(5, customer.getUnits());
             statement.setInt(6, customer.getId());
@@ -113,6 +113,25 @@ public class CustomerDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    public int getLastId() {
+        String query = "SELECT MAX(id) AS last_id FROM Customer";
+        int lastId = 0;
+
+        try {
+            Connection connection = DBConnectionFactory.getConnection();
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                lastId = resultSet.getInt("last_id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lastId;
     }
 
 }

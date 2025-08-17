@@ -5,19 +5,19 @@ public class Customer {
 	private int id;
 	private String name;
 	private String address;
-	private String telphone;
+	private String telephone;
 	private String email;
 	private int units;
 	
 	
 	
-	public Customer(String name, String address, String telphone,String email, int units) {
+	public Customer(String name, String address, String telephone,String email) {
 		super();
 		this.name = name;
 		this.address = address;
-		this.telphone = telphone;
+		this.telephone = telephone;
 		this.email = email;
-		this.units = units;
+		
 	}
 	
 	
@@ -64,14 +64,14 @@ public class Customer {
 
 
 
-	public String getTelphone() {
-		return telphone;
+	public String getTelephone() {
+		return telephone;
 	}
 
 
 
-	public void setTelphone(String telphone) {
-		this.telphone = telphone;
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 
 

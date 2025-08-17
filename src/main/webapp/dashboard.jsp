@@ -209,10 +209,10 @@
                                 <h5 class="mb-3">Add New Customer</h5>
                                 <form action="customer?action=add" method="post">
                                     <div class="row">
-                                        <div class="col-md-6 mb-3">
+                                        <!-- <div class="col-md-6 mb-3">
                                             <label for="accountNumber" class="form-label">Account Number</label>
                                             <input type="text" class="form-control" id="accountNumber" name="cusid" required>
-                                        </div>
+                                        </div> -->
                                         <div class="col-md-6 mb-3">
                                             <label for="customerName" class="form-label">Customer Name</label>
                                             <input type="text" class="form-control" id="customerName" name="cusname" required>
@@ -245,9 +245,8 @@
                             <div class="stats-card p-4">
                                 <h5 class="mb-3">Customer Actions</h5>
                                 <div class="d-grid gap-2">
-                                    <button class="btn btn-outline-primary">
-                                        <i class="bi bi-list me-2"></i>View All Customers
-                                    </button>
+                                    
+                                    <a href="customer?action=viewallcustomers" class="btn btn-outline-primary">View Customers</a>
                                     <button class="btn btn-outline-info">
                                         <i class="bi bi-pencil me-2"></i>Edit Customer
                                     </button>

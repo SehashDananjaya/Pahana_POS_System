@@ -27,7 +27,9 @@ public class CustomerService {
 	}
 
 	public void addCustomer(Customer customer) {
+		System.out.println("sdfsdfsfsdf");
 		customerDAO.addCustomer(customer);
+		System.out.println(customer);
 	}
 
 	public List<Customer> getAllCustomers() {
@@ -45,4 +47,10 @@ public class CustomerService {
 	public void deleteCustomer(int id) {
 		customerDAO.deleteCustomer(id);
 	}
+	
+	public String generateCustomerId() {
+	    int nextId = customerDAO.getLastId() + 1;
+	    return String.format("C%03d", nextId); // C001, C002, ...
+	}
+	
 }
