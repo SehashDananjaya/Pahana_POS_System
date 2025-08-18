@@ -22,6 +22,34 @@ public class Customer {
 	
 	
 	
+	
+	
+	public Customer(int id, String name, String address, String telephone, String email, int units) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.telephone = telephone;
+		this.email = email;
+		this.units = units;
+	}
+
+
+
+
+
+	public Customer(int id, String name, String address, String telephone, String email) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.telephone = telephone;
+		this.email = email;
+	}
+
+
+
+
 	public Customer() {
 		super();
 	}

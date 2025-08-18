@@ -44,10 +44,10 @@ public class CustomerDAO {
                 String address = resultSet.getString("address");
                 String telphone = resultSet.getString("telephone");
                 String email = resultSet.getString("email");
-                //int units = resultSet.getInt("units");
+                int units = resultSet.getInt("units");
 
-                Customer customer = new Customer(name, address, telphone, email);
-                customer.setId(id);
+                Customer customer = new Customer(id, name, address, telphone, email, units);
+                //customer.setId(id);
                 customers.add(customer);
             }
         } catch (SQLException e) {
@@ -58,7 +58,7 @@ public class CustomerDAO {
     }
 
     public Customer getCustomerById(int id) {
-        String query = "SELECT * FROM Customer WHERE id = ?";
+        String query = "SELECT * FROM Customer WHERE customer_id = ?";
         Customer customer = null;
 
         try {
@@ -85,7 +85,7 @@ public class CustomerDAO {
     }
 
     public void updateCustomer(Customer customer) {
-        String query = "UPDATE Customer SET name = ?, address = ?, telphone = ?, email = ?, units = ? WHERE id = ?";
+        String query = "UPDATE Customer SET name = ?, address = ?, telephone = ?, email = ?, units = ? WHERE customer_id = ?";
 
         try {
             Connection connection = DBConnectionFactory.getConnection();
@@ -103,7 +103,7 @@ public class CustomerDAO {
     }
 
     public void deleteCustomer(int id) {
-        String query = "DELETE FROM Customer WHERE id = ?";
+        String query = "DELETE FROM Customer WHERE customer_id = ?";
 
         try {
             Connection connection = DBConnectionFactory.getConnection();
