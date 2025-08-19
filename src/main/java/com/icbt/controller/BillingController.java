@@ -79,9 +79,9 @@ public class BillingController extends HttpServlet {
 	
 	private void saveBill(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException {
-		
-		System.out.println("save bill");
-		
+
+	    System.out.println("save bill");
+
 	    String billIdStr = request.getParameter("billId");
 	    String customerName = request.getParameter("customerName");
 	    String billDateStr = request.getParameter("billDate");
@@ -102,25 +102,30 @@ public class BillingController extends HttpServlet {
 	            return;
 	        }
 
-	        // Calculate total
+	        // Calculate total amount and total units
 	        double totalAmount = 0;
+	        int totalUnits = 0;
 	        for (BillItem item : billItems) {
 	            totalAmount += item.getSubtotal();
+	            totalUnits += item.getQuantity(); // Assuming BillItem has getQuantity()
 	        }
 
 	        // Save the bill with total amount
 	        billingService.saveFinalBill(billId, totalAmount);
 
-	     // Clear session/cart info
-			HttpSession session = request.getSession();
-			session.removeAttribute("cart");
-			session.removeAttribute("billId");
-			session.removeAttribute("customerName");
-			session.removeAttribute("billDate");
+	        // Update customer total units
+	        billingService.updateCustomerUnits(customerName, totalUnits);
 
-			request.setAttribute("activeSection", "billing");
-			showBillingPage(request, response);
-	     
+	        // Clear session/cart info
+	        HttpSession session = request.getSession();
+	        session.removeAttribute("cart");
+	        session.removeAttribute("billId");
+	        session.removeAttribute("customerName");
+	        session.removeAttribute("billDate");
+
+	        request.setAttribute("activeSection", "billing");
+	        showBillingPage(request, response);
+
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }

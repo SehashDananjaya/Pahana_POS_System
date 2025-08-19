@@ -22,6 +22,12 @@
   	<description></description>
   	<servlet-class>com.icbt.controller.BillingController</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ReportController</servlet-name>
+  	<display-name>ReportController</display-name>
+  	<description></description>
+  	<servlet-class>com.icbt.controller.ReportController</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>CustomerController</servlet-name>
   	<url-pattern>/customerControllerr</url-pattern>
@@ -33,6 +39,10 @@
   <servlet-mapping>
   	<servlet-name>BillingController</servlet-name>
   	<url-pattern>/BillingController</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ReportController</servlet-name>
+  	<url-pattern>/rreportControllerr</url-pattern>
   </servlet-mapping>
  
  

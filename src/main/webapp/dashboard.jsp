@@ -725,44 +725,71 @@
 
 
 
+
+
+
 				<!-- Reports Section -->
 				<div id="reports-section" class="p-4" style="display: none;">
-					<h3 class="mb-4">Reports & Analytics</h3>
-					<div class="row">
-						<div class="col-md-6 mb-4">
-							<div class="stats-card p-4">
-								<h5 class="mb-3">Sales Reports</h5>
-								<div class="d-grid gap-2">
-									<button class="btn btn-outline-primary">
-										<i class="bi bi-calendar-day me-2"></i>Daily Sales Report
-									</button>
-									<button class="btn btn-outline-success">
-										<i class="bi bi-calendar-week me-2"></i>Weekly Sales Report
-									</button>
-									<button class="btn btn-outline-info">
-										<i class="bi bi-calendar-month me-2"></i>Monthly Sales Report
-									</button>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6 mb-4">
-							<div class="stats-card p-4">
-								<h5 class="mb-3">Inventory Reports</h5>
-								<div class="d-grid gap-2">
-									<button class="btn btn-outline-warning">
-										<i class="bi bi-exclamation-triangle me-2"></i>Low Stock Alert
-									</button>
-									<button class="btn btn-outline-secondary">
-										<i class="bi bi-box-seam me-2"></i>Inventory Summary
-									</button>
-									<button class="btn btn-outline-dark">
-										<i class="bi bi-graph-up me-2"></i>Sales Analytics
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+    <h3 class="mb-4">Reports & Analytics</h3>
+
+    <div class="row">
+
+        <!-- Sales Reports -->
+        <div class="col-md-6 mb-4">
+            <div class="stats-card p-4 border rounded shadow-sm">
+                <h5 class="mb-3">Sales Reports</h5>
+                <div class="d-grid gap-2 mb-3">
+                    <form action="ReportController" method="get">
+                        <input type="hidden" name="reportType" value="daily">
+                        <button type="submit" class="btn btn-outline-primary">
+                            <i class="bi bi-calendar-day me-2"></i>Daily Sales Report
+                        </button>
+                    </form>
+                    <form action="ReportController" method="get">
+                        <input type="hidden" name="reportType" value="weekly">
+                        <button type="submit" class="btn btn-outline-success">
+                            <i class="bi bi-calendar-week me-2"></i>Weekly Sales Report
+                        </button>
+                    </form>
+                    <form action="ReportController" method="get">
+                        <input type="hidden" name="reportType" value="monthly">
+                        <button type="submit" class="btn btn-outline-info">
+                            <i class="bi bi-calendar-month me-2"></i>Monthly Sales Report
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inventory Reports -->
+        <div class="col-md-6 mb-4">
+            <div class="stats-card p-4 border rounded shadow-sm">
+                <h5 class="mb-3">Inventory Reports</h5>
+                <div class="d-grid gap-2 mb-3">
+                    <form action="ReportController" method="get">
+                        <input type="hidden" name="reportType" value="lowStock">
+                        <button type="submit" class="btn btn-outline-warning">
+                            <i class="bi bi-exclamation-triangle me-2"></i>Low Stock Alert
+                        </button>
+                    </form>
+                    <form action="ReportController" method="get">
+                        <input type="hidden" name="reportType" value="inventorySummary">
+                        <button type="submit" class="btn btn-outline-secondary">
+                            <i class="bi bi-box-seam me-2"></i>Inventory Summary
+                        </button>
+                    </form>
+                    <form action="ReportController" method="get">
+                        <input type="hidden" name="reportType" value="salesAnalytics">
+                        <button type="submit" class="btn btn-outline-dark">
+                            <i class="bi bi-graph-up me-2"></i>Sales Analytics
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 				<!-- Help Section -->
 				<div id="help-section" class="p-4" style="display: none;">
