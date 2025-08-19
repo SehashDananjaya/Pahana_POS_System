@@ -75,6 +75,8 @@
 	transform: translateY(-2px);
 	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
+
+/* ----------------------BIlling Section-------------------------------- */
 </style>
 </head>
 <body>
@@ -95,15 +97,21 @@
     					<i class="bi bi-people me-2"></i> Customer Management
 						</a> -->
 						<a class="nav-link" href="customer?action=viewallcustomers"
-							onclick="showSection('customers', this)"> <i
-							class="bi bi-people me-2"></i> Customer Management
-						</a> <a class="nav-link" href="#" onclick="showSection('items')">
+							onclick="showSection('customers', this)"> 
+							<i class="bi bi-people me-2"></i> Customer Management
+						</a> 
+						<a class="nav-link" href="item?action=viewallitems" 
+							onclick="showSection('items',this)">
 							<i class="bi bi-box me-2"></i> Item Management
-						</a> <a class="nav-link" href="#" onclick="showSection('billing')">
+						</a>
+						 <a class="nav-link" href="billing?action=viewbilling" 
+						 	onclick="showSection('billing',this)">
 							<i class="bi bi-receipt me-2"></i> Billing System
-						</a> <a class="nav-link" href="#" onclick="showSection('reports')">
+						</a>
+						 <a class="nav-link" href="#" onclick="showSection('reports')">
 							<i class="bi bi-graph-up me-2"></i> Reports
-						</a> <a class="nav-link" href="#" onclick="showSection('help')"> <i
+						</a> 
+						<a class="nav-link" href="#" onclick="showSection('help')"> <i
 							class="bi bi-question-circle me-2"></i> Help
 						</a>
 						<hr class="text-white-50">
@@ -437,158 +445,285 @@
 				</div>
 
 				<!-- Item Management Section -->
-				<div id="items-section" class="p-4" style="display: none;">
-					<h3 class="mb-4">Item Management</h3>
-					<div class="row">
-						<div class="col-md-8 mb-4">
-							<div class="stats-card p-4">
-								<h5 class="mb-3">Add/Update Item</h5>
-								<form>
-									<div class="row">
-										<div class="col-md-6 mb-3">
-											<label for="itemCode" class="form-label">Item Code</label> <input
-												type="text" class="form-control" id="itemCode" required>
-										</div>
-										<div class="col-md-6 mb-3">
-											<label for="itemName" class="form-label">Item Name</label> <input
-												type="text" class="form-control" id="itemName" required>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-4 mb-3">
-											<label for="category" class="form-label">Category</label> <select
-												class="form-select" id="category">
-												<option value="">Select Category</option>
-												<option value="books">Books</option>
-												<option value="stationery">Stationery</option>
-												<option value="electronics">Electronics</option>
-											</select>
-										</div>
-										<div class="col-md-4 mb-3">
-											<label for="price" class="form-label">Price (₹)</label> <input
-												type="number" class="form-control" id="price" step="0.01"
-												required>
-										</div>
-										<div class="col-md-4 mb-3">
-											<label for="quantity" class="form-label">Quantity</label> <input
-												type="number" class="form-control" id="quantity" required>
-										</div>
-									</div>
-									<div class="mb-3">
-										<label for="description" class="form-label">Description</label>
-										<textarea class="form-control" id="description" rows="2"></textarea>
-									</div>
-									<button type="submit" class="btn btn-primary action-btn">
-										<i class="bi bi-check-circle me-2"></i>Save Item
-									</button>
-									<button type="button" class="btn btn-secondary action-btn ms-2">
-										<i class="bi bi-search me-2"></i>Search Item
-									</button>
-								</form>
-							</div>
-						</div>
-						<div class="col-md-4 mb-4">
-							<div class="stats-card p-4">
-								<h5 class="mb-3">Item Actions</h5>
-								<div class="d-grid gap-2">
-									<button class="btn btn-outline-primary">
-										<i class="bi bi-list me-2"></i>View All Items
-									</button>
-									<button class="btn btn-outline-success">
-										<i class="bi bi-plus-circle me-2"></i>Add New Item
-									</button>
-									<button class="btn btn-outline-warning">
-										<i class="bi bi-arrow-clockwise me-2"></i>Update Stock
-									</button>
-									<button class="btn btn-outline-danger">
-										<i class="bi bi-trash me-2"></i>Delete Item
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+<div id="items-section" class="p-4" style="display: ${activeSection == 'items' ? 'block' : 'none'};">
+    <h3 class="mb-4">Item Management</h3>
+    <div class="row">
+        <div class="col-md-8 mb-4">
+            <div class="stats-card p-4">
+                <h5 class="mb-3">
+                    ${item != null ? "Edit Item" : "Add New Item"}
+                </h5>
+                <form action="item?action=${item != null ? 'update' : 'add'}" method="post">
+                    <c:if test="${item != null}">
+                        <input type="hidden" name="id" value="${item.productId}">
+                    </c:if>
 
-				<!-- Billing Section -->
-				<div id="billing-section" class="p-4" style="display: none;">
-					<h3 class="mb-4">Billing System</h3>
-					<div class="row">
-						<div class="col-md-8 mb-4">
-							<div class="stats-card p-4">
-								<h5 class="mb-3">Generate Bill</h5>
-								<form>
-									<div class="row">
-										<div class="col-md-6 mb-3">
-											<label for="billCustomer" class="form-label">Customer
-												Account</label> <input type="text" class="form-control"
-												id="billCustomer" placeholder="Enter account number"
-												required>
-										</div>
-										<div class="col-md-6 mb-3">
-											<label for="billDate" class="form-label">Bill Date</label> <input
-												type="date" class="form-control" id="billDate"
-												value="<%=new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date())%>"
-												required>
-										</div>
-									</div>
-									<div class="mb-3">
-										<label class="form-label">Items</label>
-										<div class="border rounded p-3">
-											<div class="row mb-2">
-												<div class="col-md-4">
-													<input type="text" class="form-control"
-														placeholder="Item Code">
-												</div>
-												<div class="col-md-3">
-													<input type="number" class="form-control"
-														placeholder="Quantity">
-												</div>
-												<div class="col-md-3">
-													<input type="number" class="form-control"
-														placeholder="Price" step="0.01">
-												</div>
-												<div class="col-md-2">
-													<button type="button" class="btn btn-primary">Add</button>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6">
-											<button type="submit" class="btn btn-success action-btn">
-												<i class="bi bi-receipt me-2"></i>Generate Bill
-											</button>
-											<button type="button" class="btn btn-info action-btn ms-2">
-												<i class="bi bi-printer me-2"></i>Print Bill
-											</button>
-										</div>
-										<div class="col-md-6 text-end">
-											<h5>
-												Total: ₹<span id="totalAmount">0.00</span>
-											</h5>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-						<div class="col-md-4 mb-4">
-							<div class="stats-card p-4">
-								<h5 class="mb-3">Billing Actions</h5>
-								<div class="d-grid gap-2">
-									<button class="btn btn-outline-primary">
-										<i class="bi bi-list me-2"></i>View All Bills
-									</button>
-									<button class="btn btn-outline-info">
-										<i class="bi bi-search me-2"></i>Search Bills
-									</button>
-									<button class="btn btn-outline-warning">
-										<i class="bi bi-arrow-clockwise me-2"></i>Reprint Bill
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+                    <div class="row">
+                    	<div class="col-md-6 mb-3">
+                            <label for="itemId" class="form-label">Item ID</label>
+                            <input type="text" class="form-control" id="itemId" name="itemId"
+                                value="${item != null ? item.productId : ''}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="itemName" class="form-label">Item Name</label>
+                            <input type="text" class="form-control" id="itemName" name="itemName"
+                                value="${item != null ? item.name : ''}" required>
+                        </div>
+                        
+                    </div>
+
+                    <div class="row">
+                    <div class="col-md-6 mb-3">
+                            <label for="price" class="form-label">Price</label>
+                            <input type="number" class="form-control" id="price" name="price"
+                                value="${item != null ? item.price : ''}" step="0.01" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="quantity" class="form-label">Quantity</label>
+                            <input type="number" class="form-control" id="quantity" name="quantity"
+                                value="${item != null ? item.quantity : ''}" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" rows="2"
+                            name="description">${item != null ? item.description : ''}</textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary action-btn">
+                        <i class="bi ${item != null ? 'bi-pencil' : 'bi-check-circle'} me-2"></i>
+                        ${item != null ? "Update Item" : "Add Item"}
+                    </button>
+
+                    <c:if test="${item != null}">
+                        <a href="item?action=viewallitems" class="btn btn-secondary ms-2">Cancel</a>
+                    </c:if>
+                </form>
+            </div>
+        </div>
+
+        <!-- Item Actions -->
+        <div class="col-md-4 mb-4">
+            <div class="stats-card p-4">
+                <h5 class="mb-3">Item Actions</h5>
+                <div class="d-grid gap-2">
+                    <a href="item?action=viewallitems" class="btn btn-outline-primary">View All Items</a>
+                    <a href="" class="btn btn-outline-success">Add New Item</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Item Table -->
+    <div class="customer-table mt-4">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Item Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="item" items="${items}">
+                        <tr>
+                            <td>${item.productId}</td>
+                            <td>${item.name}</td>
+                            <td>${item.description}</td>
+                            <td>${item.price}</td>
+                            <td>${item.quantity}</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a href="item?action=edit&id=${item.productId}" class="btn btn-sm btn-outline-warning">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a href="item?action=delete&id=${item.productId}" 
+                                       class="btn btn-sm btn-outline-danger"
+                                       onclick="return confirm('Are you sure you want to delete this item?');">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Billing Section -->
+<div id="billing-section" class="p-4" style="display: ${activeSection == 'billing' ? 'block' : 'none'};">
+    <h3 class="mb-4">Billing System</h3>
+    <div class="row">
+        <div class="col-md-8 mb-4">
+            <div class="stats-card p-4">
+                <h5 class="mb-3">Create Bill</h5>
+
+                <!-- Form to create bill and add items -->
+                
+                
+                
+                
+				                <form action="billing?action=createBill" method="post" id="billForm">
+									    <div class="row">
+									        <!-- Customer Dropdown -->
+									        <div class="col-md-6 mb-3">
+									            <label for="customerId" class="form-label">Customer</label>
+									            <select id="customerId" name="customerId" class="form-select" required>
+									                <option value="">-- Select Customer --</option>
+									                <c:forEach var="cust" items="${customers}">
+									                    <option value="${cust.id},${cust.name}">${cust.name}</option>
+									                </c:forEach>
+									            </select>
+									        </div>
+									
+									        <!-- Bill Date -->
+									        <div class="col-md-6 mb-3">
+									            <label for="billDate" class="form-label">Bill Date</label>
+									            <input type="date" class="form-control" id="billDate" name="billDate"
+									                   value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %>" required>
+									        </div>
+									    </div>
+									    
+									    <div>
+									        <button type="submit" class="btn btn-success">Confirm Bill</button>
+									    </div>
+									</form>
+				
+				
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <label for="billId" class="form-label">Bill ID</label>
+				<input type="text" id="billId" name="billId" class="form-control" value="${billId}" readonly>
+    </div>
+    <div class="col-md-6 mb-3">
+        
+    </div>
+</div>
+
+<!-- Show confirmed customer & bill date (readonly) -->
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <label class="form-label">Customer</label>
+        <input type="text" class="form-control" value="${customerName}" readonly>
+    </div>
+    <div class="col-md-6 mb-3">
+        <label class="form-label">Bill Date</label>
+        <input type="text" class="form-control" value="${billDate}" readonly>
+    </div>
+</div>
+
+
+
+<!-- Add Item Form -->
+						<form action="billing?action=table" method="post">
+						
+									
+						    <div class="row mb-2">
+						        <div class="col-md-5">
+						        <!-- Hidden Bill ID -->
+										<input type="hidden" name="billId" value="${billId}">
+										<input type="hidden" name="customerName" value="${customerName}">
+										<input type="hidden" name="billDate" value="${billDate}">
+										
+						            <select id="itemSelect" name="itemId" class="form-select" required>
+						                <option value="">-- Select Item --</option>
+						                <c:forEach var="itm" items="${items}">
+						                    <option value="${itm.productId}" data-name="${itm.name}" data-price="${itm.price}">
+						                        ${itm.name} (Rs.${itm.price})
+						                    </option>
+						                </c:forEach>
+						            </select>
+						        </div>
+						        <div class="col-md-3">
+						            <input type="number" name="itemQty" class="form-control" placeholder="Quantity" min="1" required>
+						        </div>
+						        <div class="col-md-3">
+						            <input type="number" name="itemPrice" class="form-control" placeholder="Unit Price" step="0.01" required>
+						        </div>
+						        <div class="col-md-1">
+						            <button type="submit" class="btn btn-primary">Add</button>
+						        </div>
+						    </div>
+						</form>
+
+                <!-- Items Table -->
+                <div class="table-responsive mb-3">
+                    <table class="table table-bordered" id="itemsTable">
+    <thead>
+        <tr>
+            <th>Item Name</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Subtotal</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Dynamically filled with BillItem records -->
+        <c:forEach var="item" items="${billItems}">
+            <tr>
+                <td>${item.itemName}</td>
+                <td>${item.quantity}</td>
+                <td>Rs.${item.unitPrice}</td>
+                <td>Rs.${item.subtotal}</td>
+                <td>
+                    <!-- Pass both billItemId and billId -->
+                    <a href="billing?action=deleteItem&billItemId=${item.billItemId}&billId=${billId}" 
+                       class="btn btn-sm btn-danger">
+                       Delete
+                    </a>
+                </td>
+            </tr>
+        </c:forEach>
+    </tbody>
+</table>
+                </div>
+
+                <!-- Total and Save -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="billing?action=saveBill&billId=${billId}&customerName=${customerName}&billDate=${billDate}" 
+  							 class="btn btn-success">
+  										 Save Bill
+							</a>
+                        <a href="billing?action=cancelBill&billId=${billId}" class="btn btn-danger">
+   							 Cancel Bill
+						</a>
+                        
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <h5>Total: Rs.<span id="totalAmount">
+            <c:out value="${totalAmount}" default="0.00"/>
+        </span></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Billing Actions -->
+        <div class="col-md-4 mb-4">
+            <div class="stats-card p-4">
+                <h5 class="mb-3">Billing Actions</h5>
+                <div class="d-grid gap-2">
+                    <a href="billing?action=viewall" class="btn btn-outline-primary">
+                        <i class="bi bi-list me-2"></i>View All Bills
+                    </a>
+                    <a href="billing?action=search" class="btn btn-outline-info">
+                        <i class="bi bi-search me-2"></i>Search Bills
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 				<!-- Reports Section -->
 				<div id="reports-section" class="p-4" style="display: none;">
@@ -724,53 +859,37 @@
 	</div>
 
 	<!-- Bootstrap 5 JS -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-	<script>
-        function showSection(sectionName) {
-            // Hide all sections
-            const sections = ['dashboard', 'customers', 'items', 'billing', 'reports', 'help'];
-            sections.forEach(section => {
-                document.getElementById(section + '-section').style.display = 'none';
-            });
-            
-            // Show selected section
-            document.getElementById(sectionName + '-section').style.display = 'block';
-            
-            // Update active nav link
-            document.querySelectorAll('.sidebar .nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            if (element) {
-                element.classList.add('active');
-            }
-        }
-        
-        window.onload = function() {
-            <%String activeSection = (String) request.getAttribute("activeSection");%>
-            <%if (activeSection != null) {%>
-                showSection('<%=activeSection%>');
-            <%} else {%>
-                showSection('dashboard'); // default section
-            <%}%>
-        }
-    
+<script>
+function showSection(sectionName, element) {
+    // Hide all sections
+    const sections = ['dashboard', 'customers', 'items', 'billing', 'reports', 'help'];
+    sections.forEach(section => {
+        document.getElementById(section + '-section').style.display = 'none';
+    });
 
-        // Auto-update current date in billing
-        document.addEventListener('DOMContentLoaded', function() {
-            const today = new Date().toISOString().split('T')[0];
-            const billDateInput = document.getElementById('billDate');
-            if (billDateInput) {
-                billDateInput.value = today;
-            }
-        });
+    // Show selected section
+    document.getElementById(sectionName + '-section').style.display = 'block';
 
-        // Simple total calculation for billing
-        function updateTotal() {
-            // This would be connected to actual calculation logic
-            document.getElementById('totalAmount').textContent = '0.00';
-        }
-    </script>
+    // Update active nav link
+    document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+        link.classList.remove('active');
+    });
+
+    if (element) {
+        element.classList.add('active');
+    }
+}
+
+window.onload = function() {
+    <%String activeSection = (String) request.getAttribute("activeSection");%>
+    <%if (activeSection != null) {%>
+        showSection('<%=activeSection%>');
+    <%} else {%>
+        showSection('dashboard'); // default section
+    <%}%>
+}
+</script>
 </body>
 </html>

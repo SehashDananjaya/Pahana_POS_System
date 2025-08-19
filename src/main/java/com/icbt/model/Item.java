@@ -1,82 +1,64 @@
 package com.icbt.model;
 
-public class Product {
+public class Item {
 	
-	private int productId;
+	private int itemId;
 	private String name;
 	private String description;
 	private double price;
+	private int quantity;
 	
 	
-	public Product(int productId, String name, String description, double price) {
-		
-		this.productId = productId;
+	
+	public Item(int productId, String name, String description, double price, int quantity) {
+		super();
+		this.itemId = productId;
 		this.name = name;
 		this.description = description;
 		this.price = price;
+		this.quantity = quantity;
 	}
-
-
-	public Product(int productId, String name, double price) {
-		
-		this.productId = productId;
-		this.name = name;
-		this.price = price;
-	}
-
-
-	public Product(int productId, double price) {
-		
-		this.productId = productId;
-		this.price = price;
-	}
-
 	
-
-	public Product() {
-		
+	
+	public Item() {
+		super();
 	}
 
 
 	public int getProductId() {
-		return productId;
+		return itemId;
 	}
-
-
 	public void setProductId(int productId) {
-		this.productId = productId;
+		this.itemId = productId;
 	}
-
-
 	public String getName() {
 		return name;
 	}
-
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
 	public String getDescription() {
 		return description;
 	}
-
-
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-
 	public double getPrice() {
 		return price;
 	}
-
-
-	public void setPrice(double price) 
-	{
+	public void setPrice(double price) {
 		this.price = price;
 	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	
+	
+	
+	
 	
 	
 

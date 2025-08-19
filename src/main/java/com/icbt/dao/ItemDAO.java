@@ -8,18 +8,20 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.icbt.model.Product;
+import com.icbt.model.Item;
 
-public class ProductDAO {
-	public void addProduct(Product product) {
-        String query = "INSERT INTO Product (name, price, description) VALUES (?, ?, ?)";
+public class ItemDAO {
+	public void addProduct(Item product) {
+        String query = "INSERT INTO Product (product_id, name, price, description, quantity) VALUES (?,?, ?, ?,?)";
 
         try 
         {   Connection connection = DBConnectionFactory.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, product.getName());
-            statement.setDouble(2, product.getPrice());
-            statement.setString(3, product.getDescription());
+            statement.setInt(1, product.getQuantity());
+            statement.setString(2, product.getName());
+            statement.setDouble(3, product.getPrice());
+            statement.setString(4, product.getDescription());
+            statement.setInt(5, product.getQuantity());
             statement.executeUpdate();
         } 
         catch (SQLException e) 
@@ -28,28 +30,39 @@ public class ProductDAO {
         }
     }
 
-    public List<Product> getAllProducts() throws SQLException {
-        List<Product> products = new ArrayList<>();
+    public List<Item> getAllProducts() {
+        List<Item> products = new ArrayList<>();
         String query = "SELECT * FROM Product";
 
-        Connection connection = DBConnectionFactory.getConnection();
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(query);
-        while (resultSet.next()) 
-        {
-        	int id = resultSet.getInt("product_id");
-        	String name = resultSet.getString("name");
-        	double price = resultSet.getDouble("price");
-        	String desc = resultSet.getString("description");
-        	products.add(new Product(id, name, desc, price));
-        }
+        
+		try {
+			Connection connection = DBConnectionFactory.getConnection();
+	        Statement statement;
+			statement = connection.createStatement();
+			
+			 ResultSet resultSet = statement.executeQuery(query);
+		        while (resultSet.next()) 
+		        {
+		        	int id = resultSet.getInt("product_id");
+		        	String name = resultSet.getString("name");
+		        	double price = resultSet.getDouble("price");
+		        	String desc = resultSet.getString("description");
+		        	int quantity= resultSet.getInt("quantity");
+		        	products.add(new Item(id, name, desc, price, quantity));
+		        }
 
-        return products;
+		       
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return products;
+        
     }
     
-    public Product getProductById(int id) {
+    public Item getProductById(int id) {
         String query = "SELECT * FROM Product WHERE product_id = ?";
-        Product product = null;
+        Item product = null;
 
         try {
             Connection connection = DBConnectionFactory.getConnection();
@@ -61,7 +74,8 @@ public class ProductDAO {
                 String name = resultSet.getString("name");
                 double price = resultSet.getDouble("price");
                 String desc = resultSet.getString("description");
-                product = new Product(id, name, desc, price);
+                int quantity= resultSet.getInt("quantity");
+                product = new Item(id, name, desc, price, quantity);
             }
         } 
         catch (SQLException e) {
@@ -71,8 +85,8 @@ public class ProductDAO {
         return product;
     }
 
-    public void updateProduct(Product product) {
-        String query = "UPDATE Product SET name = ?, price = ?, description = ? WHERE product_id = ?";
+    public void updateProduct(Item product) {
+        String query = "UPDATE Product SET name = ?, price = ?, description = ?, quantity = ? WHERE product_id = ?";
 
         try {
             Connection connection = DBConnectionFactory.getConnection();
@@ -80,7 +94,8 @@ public class ProductDAO {
             statement.setString(1, product.getName());
             statement.setDouble(2, product.getPrice());
             statement.setString(3, product.getDescription());
-            statement.setInt(4, product.getProductId());
+            statement.setInt(4, product.getQuantity());
+            statement.setInt(5, product.getProductId());
             statement.executeUpdate();
         } 
         catch (SQLException e) {
