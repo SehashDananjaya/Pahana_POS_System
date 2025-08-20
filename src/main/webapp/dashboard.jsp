@@ -729,67 +729,160 @@
 
 
 				<!-- Reports Section -->
-				<div id="reports-section" class="p-4" style="display: none;">
+			<div id="reports-section" class="p-4">
     <h3 class="mb-4">Reports & Analytics</h3>
 
-    <div class="row">
+    <div class="row g-4">
 
-        <!-- Sales Reports -->
-        <div class="col-md-6 mb-4">
-            <div class="stats-card p-4 border rounded shadow-sm">
-                <h5 class="mb-3">Sales Reports</h5>
-                <div class="d-grid gap-2 mb-3">
-                    <form action="ReportController" method="get">
-                        <input type="hidden" name="reportType" value="daily">
-                        <button type="submit" class="btn btn-outline-primary">
-                            <i class="bi bi-calendar-day me-2"></i>Daily Sales Report
-                        </button>
-                    </form>
-                    <form action="ReportController" method="get">
-                        <input type="hidden" name="reportType" value="weekly">
-                        <button type="submit" class="btn btn-outline-success">
-                            <i class="bi bi-calendar-week me-2"></i>Weekly Sales Report
-                        </button>
-                    </form>
-                    <form action="ReportController" method="get">
-                        <input type="hidden" name="reportType" value="monthly">
-                        <button type="submit" class="btn btn-outline-info">
-                            <i class="bi bi-calendar-month me-2"></i>Monthly Sales Report
-                        </button>
-                    </form>
+        <!-- Sales & Customer Analytics Reports -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Sales & Customer Analytics</h5>
+                    
+                    <!-- Customer Analytics -->
+                    <div class="mb-3">
+    <h6>Customer Reports</h6>
+
+    <!-- Customer Details Report -->
+    <div class="d-grid gap-2 mb-2">
+        <form action="ReportController" method="get">
+            <input type="hidden" name="reportType" value="customerDetails">
+            <button type="submit" class="btn btn-outline-primary w-100">
+                <i class="bi bi-card-list me-2"></i>Customer Details Report
+            </button>
+        </form>
+    </div>
+
+    <!-- Customer Analytics Report -->
+    <div class="d-grid gap-2 mb-2">
+        <form action="ReportController" method="get">
+            <input type="hidden" name="reportType" value="customerAnalytics">
+            <button type="submit" class="btn btn-outline-success w-100">
+                <i class="bi bi-people-fill me-2"></i>Customer Analytics Report
+            </button>
+        </form>
+    </div>
+
+    <!-- Save Buttons -->
+    <div class="d-grid gap-2">
+        <button class="btn btn-primary w-100">
+            <i class="bi bi-download me-2"></i>Save Customer Details
+        </button>
+        <button class="btn btn-success w-100">
+            <i class="bi bi-download me-2"></i>Save Customer Analytics
+        </button>
+    </div>
+</div>
+                    <!-- Sales Reports -->
+                    <div class="mt-4">
+                        <h6>Sales Reports</h6>
+                        <div class="d-grid gap-2 mb-2">
+                            <form action="ReportController" method="get">
+                                <input type="hidden" name="reportType" value="daily">
+                                <button type="submit" class="btn btn-outline-primary w-100">
+                                    <i class="bi bi-calendar-day me-2"></i>Daily Sales Report
+                                </button>
+                            </form>
+                            <form action="ReportController" method="get">
+                                <input type="hidden" name="reportType" value="weekly">
+                                <button type="submit" class="btn btn-outline-success w-100">
+                                    <i class="bi bi-calendar-week me-2"></i>Weekly Sales Report
+                                </button>
+                            </form>
+                            <form action="ReportController" method="get">
+                                <input type="hidden" name="reportType" value="monthly">
+                                <button type="submit" class="btn btn-outline-info w-100">
+                                    <i class="bi bi-calendar-month me-2"></i>Monthly Sales Report
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Save Sales Reports -->
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary w-100">
+                                <i class="bi bi-download me-2"></i>Save Daily Report
+                            </button>
+                            <button class="btn btn-success w-100">
+                                <i class="bi bi-download me-2"></i>Save Weekly Report
+                            </button>
+                            <button class="btn btn-info w-100">
+                                <i class="bi bi-download me-2"></i>Save Monthly Report
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Customer Analytics -->
+                    <div class="mt-4">
+                        <h6>Customer Analytics</h6>
+                        <div class="d-grid gap-2 mb-2">
+                            <form action="ReportController" method="get">
+                                <input type="hidden" name="reportType" value="customerAnalytics">
+                                <button type="submit" class="btn btn-outline-primary w-100">
+                                    <i class="bi bi-people-fill me-2"></i>Customer Analytics
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Save Customer Analytics -->
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary w-100">
+                                <i class="bi bi-download me-2"></i>Save Customer Analytics
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
 
         <!-- Inventory Reports -->
-        <div class="col-md-6 mb-4">
-            <div class="stats-card p-4 border rounded shadow-sm">
-                <h5 class="mb-3">Inventory Reports</h5>
-                <div class="d-grid gap-2 mb-3">
-                    <form action="ReportController" method="get">
-                        <input type="hidden" name="reportType" value="lowStock">
-                        <button type="submit" class="btn btn-outline-warning">
-                            <i class="bi bi-exclamation-triangle me-2"></i>Low Stock Alert
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Inventory Reports</h5>
+
+                    <div class="d-grid gap-2 mb-3">
+                        <form action="ReportController" method="get">
+                            <input type="hidden" name="reportType" value="lowStock">
+                            <button type="submit" class="btn btn-outline-warning w-100">
+                                <i class="bi bi-exclamation-triangle me-2"></i>Low Stock Alert
+                            </button>
+                        </form>
+                        <form action="ReportController" method="get">
+                            <input type="hidden" name="reportType" value="inventorySummary">
+                            <button type="submit" class="btn btn-outline-secondary w-100">
+                                <i class="bi bi-box-seam me-2"></i>Inventory Summary
+                            </button>
+                        </form>
+                        <form action="ReportController" method="get">
+                            <input type="hidden" name="reportType" value="salesAnalytics">
+                            <button type="submit" class="btn btn-outline-dark w-100">
+                                <i class="bi bi-graph-up me-2"></i>Sales Analytics
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Save Inventory Reports -->
+                    <div class="d-grid gap-2 mt-3">
+                        <button class="btn btn-warning w-100">
+                            <i class="bi bi-download me-2"></i>Save Low Stock Report
                         </button>
-                    </form>
-                    <form action="ReportController" method="get">
-                        <input type="hidden" name="reportType" value="inventorySummary">
-                        <button type="submit" class="btn btn-outline-secondary">
-                            <i class="bi bi-box-seam me-2"></i>Inventory Summary
+                        <button class="btn btn-secondary w-100">
+                            <i class="bi bi-download me-2"></i>Save Inventory Summary
                         </button>
-                    </form>
-                    <form action="ReportController" method="get">
-                        <input type="hidden" name="reportType" value="salesAnalytics">
-                        <button type="submit" class="btn btn-outline-dark">
-                            <i class="bi bi-graph-up me-2"></i>Sales Analytics
+                        <button class="btn btn-dark w-100">
+                            <i class="bi bi-download me-2"></i>Save Sales Analytics
                         </button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
 
     </div>
 </div>
+
+
 
 				<!-- Help Section -->
 				<div id="help-section" class="p-4" style="display: none;">
