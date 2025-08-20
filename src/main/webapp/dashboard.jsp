@@ -729,6 +729,9 @@
 
 
 				<!-- Reports Section -->
+				
+				
+				
 			<div id="reports-section" class="p-4">
     <h3 class="mb-4">Reports & Analytics</h3>
 
@@ -766,13 +769,24 @@
 
     <!-- Save Buttons -->
     <div class="d-grid gap-2">
-        <button class="btn btn-primary w-100">
+    <!-- Save Customer Details -->
+    <form action="ReportController" method="get">
+        <input type="hidden" name="reportType" value="customerDetails">
+        <input type="hidden" name="saveFile" value="true">
+        <button type="submit" class="btn btn-primary w-100">
             <i class="bi bi-download me-2"></i>Save Customer Details
         </button>
-        <button class="btn btn-success w-100">
+    </form>
+
+    <!-- Save Customer Analytics -->
+    <form action="ReportController" method="get">
+        <input type="hidden" name="reportType" value="customerAnalytics">
+        <input type="hidden" name="saveFile" value="true">
+        <button type="submit" class="btn btn-success w-100">
             <i class="bi bi-download me-2"></i>Save Customer Analytics
         </button>
-    </div>
+    </form>
+</div>
 </div>
                     <!-- Sales Reports -->
                     <div class="mt-4">
@@ -800,37 +814,34 @@
 
                         <!-- Save Sales Reports -->
                         <div class="d-grid gap-2">
-                            <button class="btn btn-primary w-100">
-                                <i class="bi bi-download me-2"></i>Save Daily Report
-                            </button>
-                            <button class="btn btn-success w-100">
-                                <i class="bi bi-download me-2"></i>Save Weekly Report
-                            </button>
-                            <button class="btn btn-info w-100">
-                                <i class="bi bi-download me-2"></i>Save Monthly Report
-                            </button>
-                        </div>
+    <form action="ReportController" method="get">
+        <input type="hidden" name="reportType" value="daily">
+        <input type="hidden" name="saveFile" value="true">
+        <button class="btn btn-primary w-100">
+            <i class="bi bi-download me-2"></i>Save Daily Report
+        </button>
+    </form>
+
+    <form action="ReportController" method="get">
+        <input type="hidden" name="reportType" value="weekly">
+        <input type="hidden" name="saveFile" value="true">
+        <button class="btn btn-success w-100">
+            <i class="bi bi-download me-2"></i>Save Weekly Report
+        </button>
+    </form>
+
+    <form action="ReportController" method="get">
+        <input type="hidden" name="reportType" value="monthly">
+        <input type="hidden" name="saveFile" value="true">
+        <button class="btn btn-info w-100">
+            <i class="bi bi-download me-2"></i>Save Monthly Report
+        </button>
+    </form>
+</div>
                     </div>
 
                     <!-- Customer Analytics -->
-                    <div class="mt-4">
-                        <h6>Customer Analytics</h6>
-                        <div class="d-grid gap-2 mb-2">
-                            <form action="ReportController" method="get">
-                                <input type="hidden" name="reportType" value="customerAnalytics">
-                                <button type="submit" class="btn btn-outline-primary w-100">
-                                    <i class="bi bi-people-fill me-2"></i>Customer Analytics
-                                </button>
-                            </form>
-                        </div>
-
-                        <!-- Save Customer Analytics -->
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-primary w-100">
-                                <i class="bi bi-download me-2"></i>Save Customer Analytics
-                            </button>
-                        </div>
-                    </div>
+                    
 
                 </div>
             </div>
@@ -865,16 +876,30 @@
 
                     <!-- Save Inventory Reports -->
                     <div class="d-grid gap-2 mt-3">
-                        <button class="btn btn-warning w-100">
-                            <i class="bi bi-download me-2"></i>Save Low Stock Report
-                        </button>
-                        <button class="btn btn-secondary w-100">
-                            <i class="bi bi-download me-2"></i>Save Inventory Summary
-                        </button>
-                        <button class="btn btn-dark w-100">
-                            <i class="bi bi-download me-2"></i>Save Sales Analytics
-                        </button>
-                    </div>
+    <form action="ReportController" method="get">
+        <input type="hidden" name="reportType" value="lowStock">
+        <input type="hidden" name="saveFile" value="true">
+        <button class="btn btn-warning w-100">
+            <i class="bi bi-download me-2"></i>Save Low Stock Report
+        </button>
+    </form>
+
+    <form action="ReportController" method="get">
+        <input type="hidden" name="reportType" value="inventorySummary">
+        <input type="hidden" name="saveFile" value="true">
+        <button class="btn btn-secondary w-100">
+            <i class="bi bi-download me-2"></i>Save Inventory Summary
+        </button>
+    </form>
+
+    <form action="ReportController" method="get">
+        <input type="hidden" name="reportType" value="salesAnalytics">
+        <input type="hidden" name="saveFile" value="true">
+        <button class="btn btn-dark w-100">
+            <i class="bi bi-download me-2"></i>Save Sales Analytics
+        </button>
+    </form>
+</div>
                 </div>
             </div>
         </div>
