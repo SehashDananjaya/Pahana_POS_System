@@ -26,6 +26,7 @@ public class ReportController extends HttpServlet {
             throws ServletException, IOException {
 
         String reportType = request.getParameter("reportType");
+        
         boolean saveToFile = "true".equals(request.getParameter("saveFile"));
         String fileName = reportType + "_report.txt";
         String forwardPage = "reports.jsp"; // default
@@ -49,7 +50,12 @@ public class ReportController extends HttpServlet {
                 File file = new File(savePath);
                 file.getParentFile().mkdirs(); // Create directories if missing
                 saveResultSetToFile(rs, savePath);
-                response.getWriter().println("Report saved successfully at " + savePath);
+               // response.getWriter().println("Report saved successfully at " + savePath);
+                response.setContentType("text/html");
+                response.getWriter().println("<script>");
+                response.getWriter().println("alert('Report saved successfully at " + savePath.replace("\\", "\\\\") + "');");
+                response.getWriter().println("window.history.back();"); // Go back to previous page
+                response.getWriter().println("</script>");
             } else {
                 request.setAttribute("reportResult", rs);
                 request.getRequestDispatcher(forwardPage).forward(request, response);

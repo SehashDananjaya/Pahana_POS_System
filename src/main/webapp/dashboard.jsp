@@ -80,6 +80,18 @@
 </style>
 </head>
 <body>
+<%
+    String username = (String) session.getAttribute("username");
+    if (username == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
+<%
+    String role = (String) session.getAttribute("role");
+    boolean isAdmin = "admin".equalsIgnoreCase(role);
+%>
+
 	<div class="container-fluid">
 		<div class="row">
 			<!-- Sidebar -->
@@ -115,7 +127,7 @@
 							class="bi bi-question-circle me-2"></i> Help
 						</a>
 						<hr class="text-white-50">
-						<a class="nav-link" href="logout.jsp"> <i
+						<a class="nav-link" href="login?action=logout"> <i
 							class="bi bi-box-arrow-right me-2"></i> Logout
 						</a>
 					</nav>
@@ -130,8 +142,9 @@
 						<span class="navbar-brand">Management Dashboard</span>
 						<div class="navbar-nav ms-auto">
 							<span class="nav-link"> <i
-								class="bi bi-person-circle me-2"></i> Welcome, <strong>User</strong>
+								class="bi bi-person-circle me-2"></i> Welcome, <strong><%= username.toUpperCase() %></strong></strong>
 							</span>
+							<a href="login?action=logout" class="btn btn-danger">Logout</a>
 						</div>
 					</div>
 				</nav>
@@ -773,8 +786,8 @@
     <form action="ReportController" method="get">
         <input type="hidden" name="reportType" value="customerDetails">
         <input type="hidden" name="saveFile" value="true">
-        <button type="submit" class="btn btn-primary w-100">
-            <i class="bi bi-download me-2"></i>Save Customer Details
+        <button type="submit" class="btn btn-primary w-100" <%= isAdmin ? "" : "disabled" %>>
+            <i class="bi bi-download me-2 " ></i>Save Customer Details
         </button>
     </form>
 
@@ -782,7 +795,7 @@
     <form action="ReportController" method="get">
         <input type="hidden" name="reportType" value="customerAnalytics">
         <input type="hidden" name="saveFile" value="true">
-        <button type="submit" class="btn btn-success w-100">
+        <button type="submit" class="btn btn-success w-100" <%= isAdmin ? "" : "disabled" %>>
             <i class="bi bi-download me-2"></i>Save Customer Analytics
         </button>
     </form>
